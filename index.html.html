@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FM Protein — Sabor que nutre</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cream: #F5F0E8;
+    --cream-dark: #EDE7D8;
+    --dark: #1A1814;
+    --dark2: #242018;
+    --brown: #8B6F4E;
+    --brown-light: #C4A882;
+    --accent: #D4521A;
+    --accent2: #E8651F;
+    --text-muted: #6B6455;
+    --white: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--cream); font-family: 'DM Sans', sans-serif; color: var(--dark); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 200;
+    background: var(--dark);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .logo { font-family: 'Bebas Neue', sans-serif; font-size: 30px; letter-spacing: 3px; color: var(--cream); }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    font-size: 12px; font-weight: 500; color: var(--brown-light);
+    text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--cream); }
+
+  /* HERO */
+  .hero {
+    background: var(--dark); padding: 90px 40px 110px;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: 'FM'; position: absolute; font-family: 'Bebas Neue', sans-serif;
+    font-size: 420px; color: rgba(255,255,255,0.02); letter-spacing: -20px;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    pointer-events: none; user-select: none;
+  }
+  .hero-badge {
+    display: inline-block; border: 1px solid var(--accent); color: var(--accent);
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    padding: 6px 20px; border-radius: 100px; margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 12vw, 108px); line-height: 0.88;
+    color: var(--cream); letter-spacing: 3px; margin-bottom: 20px; position: relative;
+  }
+  .hero h1 span { color: var(--accent); display: block; }
+  .hero p {
+    color: var(--brown-light); font-size: 15px; font-weight: 300;
+    max-width: 440px; line-height: 1.75; margin-bottom: 40px; position: relative;
+  }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; position: relative; }
+  .btn-primary {
+    background: var(--accent); color: var(--cream);
+    padding: 14px 30px; border-radius: 100px;
+    font-size: 13px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
+    border: none; cursor: pointer; transition: background 0.2s, transform 0.15s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent; color: var(--cream);
+    padding: 14px 30px; border-radius: 100px;
+    font-size: 13px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
+    border: 1.5px solid rgba(255,255,255,0.2); cursor: pointer; transition: border-color 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--cream); }
+
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.07); border-radius: 18px;
+    margin-top: 64px; width: 100%; max-width: 540px; overflow: hidden; position: relative;
+  }
+  .stat { background: rgba(255,255,255,0.03); padding: 22px 16px; text-align: center; }
+  .stat strong { display: block; font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: var(--accent); line-height: 1; }
+  .stat span { font-size: 12px; color: var(--brown-light); letter-spacing: 0.5px; display: block; margin-top: 4px; }
+
+  /* SECTION COMMONS */
+  .section { padding: 80px 40px; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-tag { display: inline-block; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 5vw, 58px); line-height: 0.95; color: var(--dark); letter-spacing: 1px; margin-bottom: 52px; }
+
+  /* FILTER NAV */
+  .filter-wrap { overflow-x: auto; padding-bottom: 4px; margin-bottom: 40px; }
+  .categories-nav { display: flex; gap: 8px; flex-wrap: nowrap; min-width: max-content; }
+  .cat-btn {
+    padding: 9px 22px; border-radius: 100px; font-size: 13px; font-weight: 500;
+    border: 1.5px solid rgba(0,0,0,0.14); background: transparent; cursor: pointer;
+    transition: all 0.2s; color: var(--text-muted); white-space: nowrap; font-family: 'DM Sans', sans-serif;
+  }
+  .cat-btn.active { background: var(--dark); color: var(--cream); border-color: var(--dark); }
+  .cat-btn:hover:not(.active) { border-color: var(--dark); color: var(--dark); }
+
+  /* MENU GRID */
+  .menu-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px;
+  }
+  .menu-card {
+    background: var(--white); border-radius: 18px;
+    border: 1px solid rgba(0,0,0,0.07); padding: 22px 24px;
+    transition: transform 0.22s, box-shadow 0.22s;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .menu-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.09); }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .card-name { font-weight: 500; font-size: 15px; color: var(--dark); line-height: 1.3; }
+  .card-price { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--accent); white-space: nowrap; }
+  .card-desc { font-size: 13px; color: var(--text-muted); line-height: 1.55; }
+  .card-meta { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pill {
+    display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.5px;
+    padding: 4px 11px; border-radius: 100px;
+  }
+  .pill-cal { background: var(--cream-dark); color: var(--brown); }
+  .pill-size { background: #EAF0F5; color: #3A6080; }
+  .pill-protein { background: #EAF5EA; color: #2E6B2E; }
+
+  /* CATEGORY HEADER */
+  .cat-header {
+    grid-column: 1 / -1;
+    display: flex; align-items: center; gap: 16px;
+    padding: 8px 0 4px;
+  }
+  .cat-header-title {
+    font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 1px; color: var(--dark);
+  }
+  .cat-header-line { flex: 1; height: 1px; background: rgba(0,0,0,0.1); }
+
+  /* WHY */
+  .why-section { background: var(--dark); padding: 80px 40px; }
+  .why-inner { max-width: 1200px; margin: 0 auto; }
+  .why-section .section-tag { color: var(--brown-light); }
+  .why-section .section-title { color: var(--cream); }
+  .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .why-card {
+    border: 1px solid rgba(255,255,255,0.09); border-radius: 18px; padding: 30px 26px;
+    transition: border-color 0.2s;
+  }
+  .why-card:hover { border-color: rgba(212,82,26,0.5); }
+  .why-icon { font-size: 30px; margin-bottom: 16px; }
+  .why-title { font-weight: 500; font-size: 16px; margin-bottom: 8px; color: var(--cream); }
+  .why-text { font-size: 13px; color: var(--brown-light); line-height: 1.65; font-weight: 300; }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark); border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 28px 40px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--cream); letter-spacing: 2px; }
+  .footer-logo span { color: var(--accent); }
+  .footer-text { font-size: 12px; color: var(--brown-light); }
+
+  @media (max-width: 600px) {
+    nav { padding: 14px 20px; }
+    .nav-links { gap: 16px; }
+    .hero { padding: 60px 20px 80px; }
+    .section { padding: 60px 20px; }
+    .why-section { padding: 60px 20px; }
+    footer { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">FM <span>Protein</span></div>
+  <div class="nav-links">
+    <a href="#menu">Menú</a>
+    <a href="#why">Nosotros</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">Sabor que nutre</div>
+  <h1>FIT.<br><span>FUEL.</span>FLAVOR.</h1>
+  <p>Bebidas proteicas, tés artesanales, refreshers y waffles saludables. Todo el sabor, sin culpa.</p>
+  <div class="hero-cta">
+    <a class="btn-primary" href="#menu">Ver Carta</a>
+    <a class="btn-outline" href="#why">Conócenos</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><strong>9</strong><span>Categorías</span></div>
+    <div class="stat"><strong>60+</strong><span>Sabores</span></div>
+    <div class="stat"><strong>20cal</strong><span>Desde</span></div>
+  </div>
+</div>
+
+<div class="section" id="menu">
+  <div class="section-inner">
+    <span class="section-tag">Lo que ofrecemos</span>
+    <div class="section-title">Nuestra carta</div>
+
+    <div class="filter-wrap">
+      <div class="categories-nav">
+        <button class="cat-btn active" onclick="filterMenu('all',this)">Todo</button>
+        <button class="cat-btn" onclick="filterMenu('shake',this)">Shakes</button>
+        <button class="cat-btn" onclick="filterMenu('iced-latte',this)">Iced Lattes</button>
+        <button class="cat-btn" onclick="filterMenu('hot-latte',this)">Hot Lattes</button>
+        <button class="cat-btn" onclick="filterMenu('hot-tea',this)">Hot Teas</button>
+        <button class="cat-btn" onclick="filterMenu('iced-tea',this)">Iced Teas</button>
+        <button class="cat-btn" onclick="filterMenu('refresher',this)">Refreshers</button>
+        <button class="cat-btn" onclick="filterMenu('beauty',this)">Beauty Drinks</button>
+        <button class="cat-btn" onclick="filterMenu('waffle',this)">Waffles</button>
+      </div>
+    </div>
+
+    <div class="menu-grid" id="menuGrid"></div>
+  </div>
+</div>
+
+<div class="why-section" id="why">
+  <div class="why-inner">
+    <span class="section-tag">Por qué elegirnos</span>
+    <div class="section-title">Fitness<br>sin sacrificio.</div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">💪</div>
+        <div class="why-title">Alta proteína</div>
+        <div class="why-text">Hasta 36g de proteína por shake. Ideal para tu entrenamiento y recuperación muscular.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🌿</div>
+        <div class="why-title">Ingredientes naturales</div>
+        <div class="why-text">Té verde, aloe vera, colágeno y guaraná. Bebidas que cuidan tu cuerpo de adentro hacia afuera.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔥</div>
+        <div class="why-title">Bajo en calorías</div>
+        <div class="why-text">Desde 20 calorías por porción. Sin renunciar al sabor intenso que amas.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">✨</div>
+        <div class="why-title">60+ sabores únicos</div>
+        <div class="why-text">Una variedad enorme para que nunca te aburras. Siempre hay algo nuevo para descubrir.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">FM <span>Protein</span></div>
+  <div class="footer-text">© 2025 FM Protein — Sabor que nutre</div>
+</footer>
+
+<script>
+const ITEMS = [
+  // SHAKES
+  { cat:'shake', catLabel:'Shakes', name:'Explosión de Chocolate', desc:'Bebida proteica con vitaminas y minerales', cal:'220-280 cal', price:'S/ 18 · 22 · 26', size:'16oz / 21oz', protein:'18g · 27g · 36g' },
+  { cat:'shake', catLabel:'Shakes', name:'Icy Capuchino', desc:'Bebida proteica con vitaminas y minerales', cal:'220-280 cal', price:'S/ 18 · 22 · 26', size:'16oz / 21oz', protein:'18g · 27g · 36g' },
+  { cat:'shake', catLabel:'Shakes', name:'Mocca', desc:'Bebida proteica con vitaminas y minerales', cal:'220-280 cal', price:'S/ 18 · 22 · 26', size:'16oz / 21oz', protein:'18g · 27g · 36g' },
+  { cat:'shake', catLabel:'Shakes', name:'Tiramisú', desc:'Bebida proteica con vitaminas y minerales', cal:'220-280 cal', price:'S/ 18 · 22 · 26', size:'16oz / 21oz', protein:'18g · 27g · 36g' },
+  { cat:'shake', catLabel:'Shakes', name:'Pasión de Coco', desc:'Bebida proteica con vitaminas y minerales', cal:'220-280 cal', price:'S/ 18 · 22 · 26', size:'16oz / 21oz', protein:'18g · 27g · 36g' },
+  { cat:'shake', catLabel:'Shakes', name:'Tutti Frutti', desc:'Bebida proteica con vitaminas y minerales', cal:'220-280 cal', price:'S/ 18 · 22 · 26', size:'16oz / 21oz', protein:'18g · 27g · 36g' },
+  { cat:'shake', catLabel:'Shakes', name:'Piña Colada', desc:'Bebida proteica con vitaminas y minerales', cal:'220-280 cal', price:'S/ 18 · 22 · 26', size:'16oz / 21oz', protein:'18g · 27g · 36g' },
+  { cat:'shake', catLabel:'Shakes', name:'Fresa', desc:'Bebida proteica con vitaminas y minerales', cal:'220-280 cal', price:'S/ 18 · 22 · 26', size:'16oz / 21oz', protein:'18g · 27g · 36g' },
+  { cat:'shake', catLabel:'Shakes', name:'Banana Caramel', desc:'Bebida proteica con vitaminas y minerales', cal:'220-280 cal', price:'S/ 18 · 22 · 26', size:'16oz / 21oz', protein:'18g · 27g · 36g' },
+  { cat:'shake', catLabel:'Shakes', name:'Maracuyá Tropical', desc:'Bebida proteica con vitaminas y minerales', cal:'220-280 cal', price:'S/ 18 · 22 · 26', size:'16oz / 21oz', protein:'18g · 27g · 36g' },
+  { cat:'shake', catLabel:'Shakes', name:'Naranja Cremoso', desc:'Bebida proteica con vitaminas y minerales', cal:'220-280 cal', price:'S/ 18 · 22 · 26', size:'16oz / 21oz', protein:'18g · 27g · 36g' },
+  { cat:'shake', catLabel:'Shakes', name:'Delicia de Frutos Rojos', desc:'Bebida proteica con vitaminas y minerales', cal:'220-280 cal', price:'S/ 18 · 22 · 26', size:'16oz / 21oz', protein:'18g · 27g · 36g' },
+  { cat:'shake', catLabel:'Shakes', name:'Sublime', desc:'Bebida proteica con vitaminas y minerales', cal:'220-280 cal', price:'S/ 18 · 22 · 26', size:'16oz / 21oz', protein:'18g · 27g · 36g' },
+  { cat:'shake', catLabel:'Shakes', name:'Oreo', desc:'Bebida proteica con vitaminas y minerales', cal:'220-280 cal', price:'S/ 18 · 22 · 26', size:'16oz / 21oz', protein:'18g · 27g · 36g' },
+  { cat:'shake', catLabel:'Shakes', name:'Dulce de Leche', desc:'Bebida proteica con vitaminas y minerales', cal:'220-280 cal', price:'S/ 18 · 22 · 26', size:'16oz / 21oz', protein:'18g · 27g · 36g' },
+  { cat:'shake', catLabel:'Shakes', name:'Churro', desc:'Bebida proteica con vitaminas y minerales', cal:'220-280 cal', price:'S/ 18 · 22 · 26', size:'16oz / 21oz', protein:'18g · 27g · 36g' },
+  { cat:'shake', catLabel:'Shakes', name:'Maní Maní', desc:'Bebida proteica con vitaminas y minerales', cal:'220-280 cal', price:'S/ 18 · 22 · 26', size:'16oz / 21oz', protein:'18g · 27g · 36g' },
+  { cat:'shake', catLabel:'Shakes', name:'Pistacho', desc:'Bebida proteica con vitaminas y minerales', cal:'220-280 cal', price:'S/ 18 · 22 · 26', size:'16oz / 21oz', protein:'18g · 27g · 36g' },
+
+  // ICED LATTES
+  { cat:'iced-latte', catLabel:'Iced Lattes', name:'Café Amaretto', desc:'La versión ligera de los shakes · Iced', cal:'120-220 cal', price:'S/ 21', size:'21oz', protein:'27g' },
+  { cat:'iced-latte', catLabel:'Iced Lattes', name:'Café Caramelo', desc:'La versión ligera de los shakes · Iced', cal:'120-220 cal', price:'S/ 21', size:'21oz', protein:'27g' },
+  { cat:'iced-latte', catLabel:'Iced Lattes', name:'Café Mocca Avellana', desc:'La versión ligera de los shakes · Iced', cal:'120-220 cal', price:'S/ 21', size:'21oz', protein:'27g' },
+  { cat:'iced-latte', catLabel:'Iced Lattes', name:'Extra Coffee', desc:'La versión ligera de los shakes · Iced', cal:'120-220 cal', price:'S/ 21', size:'21oz', protein:'27g' },
+  { cat:'iced-latte', catLabel:'Iced Lattes', name:'Té Chai', desc:'La versión ligera de los shakes · Iced', cal:'120-220 cal', price:'S/ 21', size:'21oz', protein:'18g' },
+
+  // HOT LATTES
+  { cat:'hot-latte', catLabel:'Hot Lattes', name:'Café Amaretto', desc:'Calidez y proteína en cada sorbo', cal:'90-160 cal', price:'S/ 21', size:'16oz', protein:'27g' },
+  { cat:'hot-latte', catLabel:'Hot Lattes', name:'Café Caramelo', desc:'Calidez y proteína en cada sorbo', cal:'90-160 cal', price:'S/ 21', size:'16oz', protein:'27g' },
+  { cat:'hot-latte', catLabel:'Hot Lattes', name:'Café Mocca Avellana', desc:'Calidez y proteína en cada sorbo', cal:'90-160 cal', price:'S/ 21', size:'16oz', protein:'27g' },
+  { cat:'hot-latte', catLabel:'Hot Lattes', name:'Chocolate Caliente', desc:'Calidez y proteína en cada sorbo', cal:'90-160 cal', price:'S/ 21', size:'16oz', protein:'27g' },
+  { cat:'hot-latte', catLabel:'Hot Lattes', name:'Té Chai', desc:'Calidez y proteína en cada sorbo', cal:'90-160 cal', price:'S/ 21', size:'16oz', protein:'18g' },
+
+  // HOT TEAS
+  { cat:'hot-tea', catLabel:'Hot Teas', name:'Apple Digestivo', desc:'Bebida caliente relajante o energética', cal:'90-160 cal', price:'S/ 18', size:'16oz', protein:null },
+  { cat:'hot-tea', catLabel:'Hot Teas', name:'Infusión Herbal', desc:'Bebida caliente relajante o energética', cal:'90-160 cal', price:'S/ 18', size:'16oz', protein:null },
+  { cat:'hot-tea', catLabel:'Hot Teas', name:'Hot Chai', desc:'Bebida caliente relajante o energética', cal:'90-160 cal', price:'S/ 18', size:'16oz', protein:null },
+  { cat:'hot-tea', catLabel:'Hot Teas', name:'Herbal Relax Infusión', desc:'Bebida caliente relajante o energética', cal:'90-160 cal', price:'S/ 18', size:'16oz', protein:null },
+  { cat:'hot-tea', catLabel:'Hot Teas', name:'Immunity Essential', desc:'Bebida caliente energética e inmunológica', cal:'90-160 cal', price:'S/ 18', size:'16oz', protein:null },
+
+  // ICED TEAS
+  { cat:'iced-tea', catLabel:'Iced Teas', name:'Sandía Splash', desc:'Sandía · Té verde, aloe y guaraná', cal:'60 cal', price:'S/ 18', size:'21oz', protein:null },
+  { cat:'iced-tea', catLabel:'Iced Teas', name:'Tormenta Tropical', desc:'Maracuyá + Ponche tropical · Té verde, aloe y guaraná', cal:'60 cal', price:'S/ 18', size:'21oz', protein:null },
+  { cat:'iced-tea', catLabel:'Iced Teas', name:'Americano', desc:'Fresa + Mora Azul · Té verde, aloe y guaraná', cal:'60 cal', price:'S/ 18', size:'21oz', protein:null },
+  { cat:'iced-tea', catLabel:'Iced Teas', name:'Dulce Cielo', desc:'Cereza + Algodón de azúcar · Té verde, aloe y guaraná', cal:'60 cal', price:'S/ 18', size:'21oz', protein:null },
+  { cat:'iced-tea', catLabel:'Iced Teas', name:'Verano Fresh', desc:'Mora Azul + Piña colada · Té verde, aloe y guaraná', cal:'60 cal', price:'S/ 18', size:'21oz', protein:null },
+  { cat:'iced-tea', catLabel:'Iced Teas', name:'Tornado', desc:'Uva + Cereza · Té verde, aloe y guaraná', cal:'60 cal', price:'S/ 18', size:'21oz', protein:null },
+  { cat:'iced-tea', catLabel:'Iced Teas', name:'Berrylicious', desc:'Fresa + Frambuesa + Arándano · Té verde, aloe y guaraná', cal:'60 cal', price:'S/ 18', size:'21oz', protein:null },
+  { cat:'iced-tea', catLabel:'Iced Teas', name:'Tentación', desc:'Fresa + Sandía · Té verde, aloe y guaraná', cal:'60 cal', price:'S/ 18', size:'21oz', protein:null },
+  { cat:'iced-tea', catLabel:'Iced Teas', name:'Mar Azul', desc:'Coco + Mora Azul · Té verde, aloe y guaraná', cal:'60 cal', price:'S/ 18', size:'21oz', protein:null },
+  { cat:'iced-tea', catLabel:'Iced Teas', name:'Huracán', desc:'Maracuyá + Naranja · Té verde, aloe y guaraná', cal:'60 cal', price:'S/ 18', size:'21oz', protein:null },
+  { cat:'iced-tea', catLabel:'Iced Teas', name:'Limonada Fresa', desc:'Limón + Fresa · Té verde, aloe y guaraná', cal:'60 cal', price:'S/ 18', size:'21oz', protein:null },
+
+  // REFRESHERS
+  { cat:'refresher', catLabel:'Refreshers', name:'Maracuyá', desc:'Passion Fruit + Aloe Mandarina · Bebida refrescante a base de aloe', cal:'20 cal', price:'S/ 17', size:'21oz', protein:null },
+  { cat:'refresher', catLabel:'Refreshers', name:'Sandía', desc:'Sandía + Aloe Mango · Bebida refrescante a base de aloe', cal:'20 cal', price:'S/ 17', size:'21oz', protein:null },
+  { cat:'refresher', catLabel:'Refreshers', name:'Manzana Verde', desc:'Green Apple + Aloe Mango · Bebida refrescante a base de aloe', cal:'20 cal', price:'S/ 17', size:'21oz', protein:null },
+  { cat:'refresher', catLabel:'Refreshers', name:'Blue Blast', desc:'Mora Azul + Aloe Uva · Bebida refrescante a base de aloe', cal:'20 cal', price:'S/ 17', size:'21oz', protein:null },
+  { cat:'refresher', catLabel:'Refreshers', name:'Fruit Punch', desc:'Ponche Tropical + Aloe Mandarina · Bebida refrescante a base de aloe', cal:'20 cal', price:'S/ 17', size:'21oz', protein:null },
+  { cat:'refresher', catLabel:'Refreshers', name:'Orange', desc:'Naranja + Aloe Mandarina · Bebida refrescante a base de aloe', cal:'20 cal', price:'S/ 17', size:'21oz', protein:null },
+
+  // BEAUTY DRINKS
+  { cat:'beauty', catLabel:'Beauty Drinks', name:'Larimar', desc:'Mora Azul · Bebida rejuvenecedora con colágeno', cal:'50 cal', price:'S/ 17', size:'21oz', protein:null },
+  { cat:'beauty', catLabel:'Beauty Drinks', name:'Sandía Glam', desc:'Sandía · Bebida rejuvenecedora con colágeno', cal:'50 cal', price:'S/ 17', size:'21oz', protein:null },
+  { cat:'beauty', catLabel:'Beauty Drinks', name:'Coconut', desc:'Coco · Bebida rejuvenecedora con colágeno', cal:'50 cal', price:'S/ 17', size:'21oz', protein:null },
+  { cat:'beauty', catLabel:'Beauty Drinks', name:'Berry Mix', desc:'Blueberry · Bebida rejuvenecedora con colágeno', cal:'50 cal', price:'S/ 17', size:'21oz', protein:null },
+
+  // WAFFLES
+  { cat:'waffle', catLabel:'Waffles', name:'Waffle Frutado', desc:'Waffle proteico con frutas frescas', cal:'—', price:'S/ 24', size:'24g proteína', protein:'24g' },
+  { cat:'waffle', catLabel:'Waffles', name:'Waffle Frutos Secos', desc:'Waffle proteico con mix de frutos secos', cal:'—', price:'S/ 24', size:'24g proteína', protein:'24g' },
+  { cat:'waffle', catLabel:'Waffles', name:'Waffle Chocolate', desc:'Waffle proteico con cobertura de chocolate', cal:'—', price:'S/ 24', size:'24g proteína', protein:'24g' },
+];
+
+let currentCat = 'all';
+
+function cardHTML(item) {
+  return `
+    <div class="menu-card" data-cat="${item.cat}">
+      <div class="card-top">
+        <div class="card-name">${item.name}</div>
+        <div class="card-price">${item.price}</div>
+      </div>
+      <div class="card-desc">${item.desc}</div>
+      <div class="card-meta">
+        <span class="pill pill-cal">${item.cal}</span>
+        <span class="pill pill-size">${item.size}</span>
+        ${item.protein ? `<span class="pill pill-protein">${item.protein} proteína</span>` : ''}
+      </div>
+    </div>
+  `;
+}
+
+function renderMenu(cat) {
+  const grid = document.getElementById('menuGrid');
+  const filtered = cat === 'all' ? ITEMS : ITEMS.filter(i => i.cat === cat);
+
+  if (cat === 'all') {
+    const cats = [...new Set(ITEMS.map(i => i.cat))];
+    let html = '';
+    cats.forEach(c => {
+      const group = ITEMS.filter(i => i.cat === c);
+      html += `<div class="cat-header"><span class="cat-header-title">${group[0].catLabel}</span><div class="cat-header-line"></div></div>`;
+      html += group.map(cardHTML).join('');
+    });
+    grid.innerHTML = html;
+  } else {
+    grid.innerHTML = filtered.map(cardHTML).join('');
+  }
+}
+
+function filterMenu(cat, btn) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentCat = cat;
+  renderMenu(cat);
+}
+
+renderMenu('all');
+</script>
+</body>
+</html>
